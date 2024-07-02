@@ -1,0 +1,209 @@
+{% extends 'user/userindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <title>Title</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<div class="container">
+<div class="text-center">
+{#                    <h1 style="color: black;">Food</h1>#}
+
+                </div>
+<center>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+
+ <table class="table table-bordered">
+                <tr>
+                    <th>Type</th>
+                    <td>
+                        <select name="type" required class="form-control">
+                            <option value="">---SELECT---</option>
+                            <option value="breakfast">BREAKFAST</option>
+                            <option value="lunch">LUNCH</option>
+                            <option value="dinner">DINNER</option>
+                            <option value="snack">SNACKS</option>
+
+                        </select>
+                    </td>
+                </tr>
+     <tr>
+                    <th>Name</th>
+                    <td><input type="text" placeholder="Start With Capital Letter Eg :Ghee Rice" name="name" required class="form-control"></td>
+                </tr>  <tr>
+                    <th>Gram</th>
+                    <td><input type="text" name="g" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
+    title="This should be a number with up to 2 decimal places." required class="form-control"></td>
+                </tr>
+
+{#                <tr>#}
+{#                    <th>From Time</th>#}
+{#                    <td><input type="time" name="f" id="fromdate" required class="form-control"></td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                    <th>To Time</th>#}
+{#                    <td><input type="time" name="to" id="todate" required class="form-control"></td>#}
+{#                </tr>#}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-success" name="submit"></td>
+                </tr>
+            </table>            </form>
+        </div>
+        <div class="col-md-6">
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            </div>
+    </div>
+</center>
+    <h1 style="text-align: center">Food Details</h1>
+<h5>
+      {% if total_calories >= request.session.cu %}
+<strong style="color: red;">Total Calories    : {{ request.session.cu }}</strong><br/>
+  <strong style="color: red;">Over Used Calories: {{ request.session.cr }}</strong><br/>
+
+            <strong style="color: red;">Today Total Calories: {{ total_calories }}</strong>
+            <p style="color: red;">Warning: You have exceeded the recommended daily calorie intake!</p>
+        {% else %}
+          <strong style="color: green;">Total Calories    : {{ request.session.cu }}</strong><br/>
+  <strong style="color: green;">Remaining Calories: {{ request.session.cr }}</strong><br/>
+            <strong style="color: green;">Today Total Calories: {{ total_calories }}</strong>
+        {% endif %}
+
+
+
+</h5>
+    <div class="row">
+        {% for tutorial in i %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Date   : {{ tutorial.date }}</strong></p>
+{#                    <p><strong>From Time   : {{ tutorial.fromtime }}</strong></p>#}
+{#                    <p><strong>From Time   : {{ tutorial.fromtime }}</strong></p>#}
+                    <p><strong>Name    :{{ tutorial.name }}</strong></p>
+                    <p><strong>Type    :{{ tutorial.type }}</strong></p>
+                    <p><strong>Gram    :{{ tutorial.gram }}</strong></p>
+                    <p><strong>Collorie    :{{ tutorial.callorie }}</strong></p>
+
+
+
+
+{#                        {{ tutorial.file }}</p>#}
+
+{#                    <p><a href="delete_food/{{ tutorial.id }}" class="btn btn-danger">DELETE</a> </p>#}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</center>
+
+
+
+
+{#<div class="container">#}
+{#    <div class="card-container row">#}
+{#      <!-- Loop through data and create cards -->#}
+{#      {% for i in i %}#}
+{#      <div class="col-md-6">#}
+{#        <div class="card complaint-card">#}
+{#          <div class="card-body">#}
+{#                          <p><strong>Date:</strong> {{ i.date }}</p>#}
+{#                          <p><strong>Title:</strong> {{ i.title }}</p>#}
+{##}
+{#            <p><strong>Description:</strong> {{ i.description }}</p>#}
+{#            <p><strong>Video</strong><a href="{{ tutorial.file }}">#}
+{#                            <video width="320" height="240" controls>#}
+{#  <source src="{{ tutorial.file }}" type="video/mp4">#}
+{#  <source src="movie.ogg" type="video/ogg">#}
+{#  Your browser does not support the video tag.#}
+{#</video>#}
+{##}
+{#                        </a></p>#}
+{#            <p><strong><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a></strong> </p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endfor %}#}
+{#    </div>#}
+{#  </div>#}
+
+
+
+ <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fromDateInput = document.getElementById('fromdate');
+            const toDateInput = document.getElementById('todate');
+            const form = document.getElementById('taskForm');
+
+            function validateDates() {
+                const fromDate = new Date(fromDateInput.value);
+                const toDate = new Date(toDateInput.value);
+
+                if (toDate <= fromDate) {
+                    alert("'To Date' must be after 'From Date'.");
+                    toDateInput.value = '';
+                    return false;
+                }
+                return true;
+            }
+
+            fromDateInput.addEventListener('change', validateDates);
+            toDateInput.addEventListener('change', validateDates);
+
+            form.addEventListener('submit', function (event) {
+                if (!validateDates()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+
+<script>
+
+{#    request.session['f1'] = "Allowed"#}
+{#        request.session['f2'] = "Over Used"#}
+{#        request.session['val1'] = request.session['cu']#}
+{#        request.session['val2']#}
+
+const xValues = ["{{ request.session.f1 }}", "{{ request.session.f2 }}"];
+const yValues = [{{ request.session.val1 }}, {{ request.session.val2 }}];
+const barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "FOOD DETAILS"
+    }
+  }
+});
+</script>
+
+</html>
+{% endblock %}

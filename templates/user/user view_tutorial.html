@@ -1,0 +1,78 @@
+{% extends 'user/userindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+
+    <h1 style="text-align: center">Tutorial Details</h1>
+    <div class="row">
+        {% for tutorial in a %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Date</strong></p>
+                    <p>{{ tutorial.date }}</p>
+                    <p>Description</p>
+                    <p>{{ tutorial.description }}</p>
+                    <p>File</p>
+                    <p>
+                        <a href="{{ tutorial.file }}">
+                            <video width="320" height="240" controls>
+  <source src="{{ tutorial.file }}" type="video/mp4">
+{#  <source src="movie.ogg" type="video/ogg">#}
+  Your browser does not support the video tag.
+</video>
+
+                        </a>
+{#                        {{ tutorial.file }}</p>#}
+                    <p>PDF</p>
+                    <p><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a> </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</center>
+
+
+
+
+{#<div class="container">#}
+{#    <div class="card-container row">#}
+{#      <!-- Loop through data and create cards -->#}
+{#      {% for i in i %}#}
+{#      <div class="col-md-6">#}
+{#        <div class="card complaint-card">#}
+{#          <div class="card-body">#}
+{#                          <p><strong>Date:</strong> {{ i.date }}</p>#}
+{#                          <p><strong>Title:</strong> {{ i.title }}</p>#}
+{##}
+{#            <p><strong>Description:</strong> {{ i.description }}</p>#}
+{#            <p><strong>Video</strong><a href="{{ tutorial.file }}">#}
+{#                            <video width="320" height="240" controls>#}
+{#  <source src="{{ tutorial.file }}" type="video/mp4">#}
+{#  <source src="movie.ogg" type="video/ogg">#}
+{#  Your browser does not support the video tag.#}
+{#</video>#}
+{##}
+{#                        </a></p>#}
+{#            <p><strong><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a></strong> </p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endfor %}#}
+{#    </div>#}
+{#  </div>#}
+
+
+
+
+</body>
+</html>
+{% endblock %}

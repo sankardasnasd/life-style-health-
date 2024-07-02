@@ -1,0 +1,36 @@
+{% extends 'user/userindex.html' %}
+{% block body %}
+
+<div class="container">
+<center>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="/insert_te" enctype="multipart/form-data">
+                {% csrf_token %}
+ <table class="table table-bordered center-block">
+
+
+                <tr>
+                    <th>Task Completed</th>
+                    <td><input type="number" name="f" id="s" max="{{ m }}"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-success" name="submit"></td>
+                </tr>
+            </table>
+
+            </form>
+        </div>
+    </div>
+</center>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

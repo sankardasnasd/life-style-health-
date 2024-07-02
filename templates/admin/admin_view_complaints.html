@@ -1,0 +1,138 @@
+
+
+{% extends 'admin/adminindex2.html' %}
+{% block body %}
+
+
+<head>
+
+    <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      margin-top: 50px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .form-title {
+      margin-bottom: 20px;
+    }
+    .form-container textarea {
+      resize: none;
+    }
+
+       body {
+      background-color: #f8f9fa;
+    }
+    .card-container {
+      margin-top: 50px;
+    }
+    .complaint-card {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .card-body p {
+      margin-bottom: 10px;
+    }
+
+        body {
+      background-color: #f8f9fa;
+    }
+    .card-container {
+      margin-top: 50px;
+    }
+    .complaint-card {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .card-body p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+
+
+<h2>Complaints</h2><br>
+<form action="/admin_view_complaints_post" method="post">{% csrf_token %}
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>From</th>
+            <th><input type="date" name="f" required class="form-control" ></th>
+            <th>To</th>
+            <th><input type="date" name="t" required   class="form-control"></th>
+            <th><input type="submit" value="Search" class="btn btn-warning" required></th>
+        </tr>
+    </table>
+</div>
+
+<div class="container">
+    <div class="card-container row">
+      <!-- Loop through data and create cards -->
+      {% for i in a %}
+      <div class="col-md-6">
+        <div class="card complaint-card">
+          <div class="card-body">
+                          <p><strong>Date:</strong> {{ i.date }}</p>
+                          <p><strong>User:</strong> {{ i.USER.name }}</p>
+
+            <p><strong>Complaint:</strong> {{ i.complaints }}</p>
+            <p><strong>Status:</strong> {{ i.status }}</p>
+            <p>{% if i.status == 'pending' %}
+            <a href="/admin_reply/{{ i.id }}" class="card-link">Reply</a>
+            {% else %}
+                        <p class="card-text">Reply :{{ i.reply }}</p>
+            {% endif %}
+
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% for i in b %}
+      <div class="col-md-6">
+        <div class="card complaint-card">
+          <div class="card-body">
+                          <p><strong>Date:</strong> {{ i.date }}</p>
+                          <p><strong>User:</strong> {{ i.EXPERT.name }}</p>
+
+            <p><strong>Complaint:</strong> {{ i.complaints }}</p>
+            <p><strong>Status:</strong> {{ i.status }}</p>
+            <p>{% if i.status == 'pending' %}
+            <a href="/admin_reply_expert/{{ i.id }}" class="card-link">Reply</a>
+            {% else %}
+                        <p class="card-text">Reply :{{ i.reply }}</p>
+            {% endif %}
+
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</form>
+
+</body>
+
+
+
+{% endblock %}

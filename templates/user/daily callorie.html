@@ -1,0 +1,32 @@
+<!-- myapp/templates/myapp/daily_calorie_intake.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Calorie Intake</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="progress-circle" id="progress-circle">
+        <div class="progress-circle-inner">
+            <span id="percentage-text">0%</span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const totalCalories = {{ total_calories }};
+            const goalCalories = {{ goal_calories }};
+            const percentage = Math.min((totalCalories / goalCalories) * 100, 100);
+            const progressCircle = document.getElementById('progress-circle');
+            const percentageText = document.getElementById('percentage-text');
+
+            // Update the conic-gradient to reflect the new percentage
+            progressCircle.style.background = `conic-gradient(#4caf50 ${percentage}%, #e0e0e0 ${percentage}%)`;
+
+            // Update the displayed percentage text
+            percentageText.textContent = `${percentage.toFixed(2)}%`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'admin/adminindex2.html' %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Registered Users</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h3 class="tlt">Yearly Registered Users</h3>
+    <canvas id="userBarChart" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
+    <script>
+        var ctx = document.getElementById('userBarChart').getContext('2d');
+        var barChartData = {
+            labels: {{ labels|safe }},
+            datasets: [
+                {
+                    label: 'Registered Users',
+                    backgroundColor: "#FC8213",
+                    data: {{ data|safe }}
+                }
+            ]
+        };
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Users'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'user/userindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calorie Burn Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<style></style>
+    <h1>Calorie Burn Chart</h1>
+    <canvas id="calorieBurnChart" width="800" height="400"></canvas>
+    <script>
+        var ctx = document.getElementById('calorieBurnChart').getContext('2d');
+        var calorieBurnChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ dates|safe }},
+
+                datasets: [{
+                    label: 'Calories Burned',
+      data: {{ calories_burned|safe }},
+      borderColor: "red",
+      fill: false
+    }, {
+                      label: 'Calories Consumed',
+      data: {{ cc }},
+      borderColor: "green",
+      fill: false
+    }, {
+                      label: 'Emotion',
+      data: {{ emo }},
+      borderColor: "blue",
+      fill: false
+    }]
+{#                datasets: [{#}
+{#                    label: 'Calories Burned',#}
+{#                    data: {{ calories_burned|safe }},#}
+{#                    backgroundColor: 'rgba(255, 99, 132, 0.2)',#}
+{#                    borderColor: 'rgba(255, 99, 132, 1)',#}
+{#                    borderWidth: 1,#}
+{#                    fill: false#}
+{#                }]#}
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

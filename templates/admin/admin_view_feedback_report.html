@@ -1,0 +1,137 @@
+
+
+{% extends 'admin/adminindex2.html' %}
+{% block body %}
+
+
+<head>
+
+    <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      margin-top: 50px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .form-title {
+      margin-bottom: 20px;
+    }
+    .form-container textarea {
+      resize: none;
+    }
+
+       body {
+      background-color: #f8f9fa;
+    }
+    .card-container {
+      margin-top: 50px;
+    }
+    .complaint-card {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .card-body p {
+      margin-bottom: 10px;
+    }
+
+        body {
+      background-color: #f8f9fa;
+    }
+    .card-container {
+      margin-top: 50px;
+    }
+    .complaint-card {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .card-body p {
+      margin-bottom: 10px;
+    }
+  </style>
+
+
+
+<script>
+        function printDiv() {
+            var divContents = document.getElementById("pd").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<body > ');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+    </script>
+</head>
+<body>
+
+
+
+<h2>Reports</h2><br>
+<form action="/admin_view_feedback_report_post" method="post">{% csrf_token %}
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>From</th>
+            <th><input type="date" name="f" required class="form-control" ></th>
+            <th>To</th>
+            <th><input type="date" name="t" required   class="form-control"></th>
+            <th><input type="submit" value="Search" class="btn btn-warning" required></th>
+        </tr>
+    </table>
+</div>
+<div class="text-center">
+    <input type="submit" onclick="printDiv()" class="btn btn-info" value="Print">
+
+</div>
+    <div class="container" id="pd">
+
+
+        <table class="table table-bordered" border="1">
+            <tr>
+                <th>Name</th>
+                <th>Feedback</th>
+{#                <th>Gender</th>#}
+                <th>Date</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <th>{{ i.USER.name }}
+                <br>
+                </th>
+                <th>{{ i.feedback }}<br></th>
+{#                <th>{{ i.gender }}</th>#}
+                <th>{{ i.date }}</th>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</form>
+
+</body>
+
+
+
+{% endblock %}

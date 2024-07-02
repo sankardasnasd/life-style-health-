@@ -1,0 +1,110 @@
+{% extends 'expert/expertindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+<center>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Title</th>
+                        <td><input type="text" name="title" required class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>Video</th>
+                        <td><input type="file" name="video"  class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>Pdf</th>
+                        <td><input type="file" name="pdf"  class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><textarea class="form-control" required name="desc"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-success" name="submit"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</center>
+    <h1 style="text-align: center">Tutorial Details</h1>
+    <div class="row">
+        {% for tutorial in i %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Date</strong></p>
+                    <p>{{ tutorial.date }}</p>
+                    <p>Description</p>
+                    <p>{{ tutorial.description }}</p>
+                    <p>File</p>
+                    <p>
+                        <a href="{{ tutorial.file }}">
+                            <video width="320" height="240" controls>
+  <source src="{{ tutorial.file }}" type="video/mp4">
+{#  <source src="movie.ogg" type="video/ogg">#}
+  Your browser does not support the video tag.
+</video>
+
+                        </a>
+{#                        {{ tutorial.file }}</p>#}
+                    <p>PDF</p>
+                    <p><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a> </p>
+                    <p><a href="/delete_tutorial/{{ tutorial.id }}" class="btn btn-danger">DELETE</a> </p>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</center>
+
+
+
+
+{#<div class="container">#}
+{#    <div class="card-container row">#}
+{#      <!-- Loop through data and create cards -->#}
+{#      {% for i in i %}#}
+{#      <div class="col-md-6">#}
+{#        <div class="card complaint-card">#}
+{#          <div class="card-body">#}
+{#                          <p><strong>Date:</strong> {{ i.date }}</p>#}
+{#                          <p><strong>Title:</strong> {{ i.title }}</p>#}
+{##}
+{#            <p><strong>Description:</strong> {{ i.description }}</p>#}
+{#            <p><strong>Video</strong><a href="{{ tutorial.file }}">#}
+{#                            <video width="320" height="240" controls>#}
+{#  <source src="{{ tutorial.file }}" type="video/mp4">#}
+{#  <source src="movie.ogg" type="video/ogg">#}
+{#  Your browser does not support the video tag.#}
+{#</video>#}
+{##}
+{#                        </a></p>#}
+{#            <p><strong><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a></strong> </p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endfor %}#}
+{#    </div>#}
+{#  </div>#}
+
+
+
+
+</body>
+</html>
+{% endblock %}

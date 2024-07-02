@@ -1,0 +1,156 @@
+
+{% extends 'user/userindex.html' %}
+{% block body %}
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Today's Calories Burned</title>#}
+{#    <style>#}
+{#        .round-calorie-container {#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            height: 100vh;#}
+{#        }#}
+{##}
+{#        .round-calorie {#}
+{#            position: relative;#}
+{#            width: 200px;#}
+{#            height: 200px;#}
+{#            border-radius: 50%;#}
+{#            background: conic-gradient(#ffcc00 0% 0%, #e6e6e6 0%);#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            font-size: 24px;#}
+{#            font-weight: bold;#}
+{#            color: #fff;#}
+{#        }#}
+{##}
+{#        .round-calorie-inner {#}
+{#            position: relative;#}
+{#            width: 180px;#}
+{#            height: 180px;#}
+{#            border-radius: 50%;#}
+{#            background-color: #fff;#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#        }#}
+{##}
+{#        .round-calorie-inner span {#}
+{#            position: absolute;#}
+{#            font-size: 24px;#}
+{#            color: #000;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="round-calorie-container">#}
+{#        <div class="round-calorie">#}
+{#            <div class="round-calorie-inner" id="calorie-inner">#}
+{#                <span id="calorie-text"></span>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            const totalCalories = {{ total_calories_burned }};#}
+{#            const calorieGoal = {{ calorie_goal }};#}
+{#            const percentage = (totalCalories / calorieGoal) * 100;#}
+{##}
+{#            const calorieCircle = document.querySelector('.round-calorie');#}
+{#            const angle = percentage * 3.6; // Convert percentage to degrees#}
+{##}
+{#            if (percentage <= 100) {#}
+{#                calorieCircle.style.background = `conic-gradient(#ffcc00 ${angle}deg, #e6e6e6 ${angle}deg)`;#}
+{#            } else {#}
+{#                calorieCircle.style.background = `conic-gradient(#ffcc00 360deg, #e6e6e6 0deg)`;#}
+{#            }#}
+{##}
+{#            const calorieText = document.getElementById('calorie-text');#}
+{#            calorieText.textContent = `${totalCalories} kcal (${Math.min(percentage, 100).toFixed(1)}%)`;#}
+{#        });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Calories Burned</title>
+    <style>
+        .round-calorie-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .round-calorie {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#ffcc00 0% 0%, #e6e6e6 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .round-calorie-inner {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .round-calorie-inner span {
+            position: absolute;
+            font-size: 24px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="round-calorie-container">
+        <div class="round-calorie">
+            <div class="round-calorie-inner" id="calorie-inner">
+                <span id="calorie-text"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const totalCalories = {{ total_calories_burned }};
+            const calorieGoal = {{ calorie_goal }};
+            const percentage = (totalCalories / calorieGoal) * 100;
+
+            const calorieCircle = document.querySelector('.round-calorie');
+            const angle = percentage * 3.6; // Convert percentage to degrees
+
+            if (percentage <= 100) {
+                calorieCircle.style.background = `conic-gradient(#ffcc00 ${angle}deg, #e6e6e6 ${angle}deg)`;
+            } else {
+                calorieCircle.style.background = `conic-gradient(#ffcc00 360deg, #e6e6e6 0deg)`;
+            }
+
+            const calorieText = document.getElementById('calorie-text');
+            calorieText.textContent = `${totalCalories} kcal (${Math.min(percentage, 100).toFixed(1)}%)`;
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

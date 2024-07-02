@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Card with Completion Indicator</title>
+<style>
+  .task-card {
+    position: relative; /* Needed for absolute positioning */
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .task-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .task-progress {
+    background-color: #ddd;
+    height: 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #007bff; /* Default progress bar color */
+    border-radius: 5px;
+    width: 0%; /* Initial width */
+    transition: width 0.3s ease; /* Smooth animation */
+  }
+
+  /* Divisions */
+  .division {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1); /* Division color */
+    width: 1px; /* Width of each division */
+  }
+
+  .active-division {
+    background-color: #ffcc00; /* Active division color */
+  }
+
+  /* Percentage text */
+  .percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="task-card" id="taskCard">
+  <div class="task-header">
+    Task Title
+  </div>
+  <div class="task-progress" id="taskProgress">
+    <div class="progress-bar" id="progressBar1"></div>
+    <div class="divisions" id="divisions"></div>
+  </div>
+  <div class="percentage-text" id="percentageText">0%</div>
+  <div class="tooltip" id="tooltip">0%</div>
+</div>
+
+<script>
+  // Set completion percentage (between 0 and 100)
+  function setCompletion(percentage,id) {
+    const progressBar = document.getElementById('progressBar'+id);
+    progressBar.style.width = percentage + '%';
+
+    const divisionsContainer = document.getElementById('divisions');
+    divisionsContainer.innerHTML = ''; // Clear previous divisions
+
+    const numDivisions = Math.round(percentage / 5); // Divide by 5 to create divisions approximately every 5%
+    for (let i = 0; i < numDivisions; i++) {
+      const division = document.createElement('div');
+      division.classList.add('division');
+      division.style.left = (i * 5) + '%'; // Place each division approximately every 5%
+      divisionsContainer.appendChild(division);
+    }
+
+    // Update percentage text
+    const percentageText = document.getElementById('percentageText');
+    percentageText.textContent = percentage + '%';
+  }
+
+  // Update tooltip position and content
+  function updateTooltip(event) {
+    const tooltip = document.getElementById('tooltip');
+    const taskCard = document.getElementById('taskCard');
+    const rect = taskCard.getBoundingClientRect();
+    const percentage = Math.round((event.clientX - rect.left) / rect.width * 100);
+    tooltip.innerHTML = percentage + '%';
+    tooltip.style.display = 'block';
+    tooltip.style.left = event.clientX + 'px';
+  }
+
+  // Hide tooltip when mouse leaves the task card
+  function hideTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.style.display = 'none';
+  }
+
+  // Example usage:
+  setCompletion(50,1); // Sets completion to 50%
+
+  // Add event listeners
+  const taskCard = document.getElementById('taskCard');
+  taskCard.addEventListener('mousemove', updateTooltip);
+  taskCard.addEventListener('mouseleave', hideTooltip);
+</script>
+</body>
+</html>

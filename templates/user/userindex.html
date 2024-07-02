@@ -1,0 +1,896 @@
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>W</title>
+
+    <link href="//fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/static/user/assets/css/style-starter.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+  <style>
+      .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Ensures the image covers the entire area */
+    border: 2px solid white; /* Optional: adds a border around the image */
+}
+
+
+
+       .round-calorie-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .round-calorie {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#ffcc00 0% 0%, #e6e6e6 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .round-calorie-inner {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .round-calorie-inner span {
+            position: absolute;
+            font-size: 24px;
+            color: #000;
+        }
+
+
+  </style>
+<!--header-->
+<header id="site-header" class="fixed-top">
+  <div class="container">
+      <nav class="navbar navbar-expand-lg stroke">
+          <h1> <a class="navbar-brand" href="/user_home">
+                  <span class="lnr lnr-bicycle">Life</span> Style
+              </a></h1>
+          <!-- if logo is image enable this   
+  <a class="navbar-brand" href="#index.html">
+      <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+  </a> -->
+          <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+              data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+              <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="/user_home">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_profile#abc">Profile</a>
+                  </li>
+
+                  <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_view_expert#abc">Expert</a>
+                  </li>
+                  {% if request.session.utype == 'Premium' %}
+                   <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_view_request#abc">Request</a>
+                  </li>
+                  {% endif %}
+                  <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_add_task#abc">Habit</a>
+                  </li>   <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_event#abc">Events</a>
+                  </li>
+                  {% if request.session.utype == 'Premium' %}
+                  <li class="nav-item @@about__active">
+                      <a class="nav-link" href="/user_calorie_burn_chart#abc">Report</a>
+                  </li>
+              {% endif %}
+
+
+{#                  <li class="nav-item @@about__active">#}
+{#                      <a class="nav-link" href="/chatwithexpert#abc">Chat</a>#}
+{#                  </li>#}
+
+                <li class="nav-item dropdown @@pages__active">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Daily <span class="fa fa-angle-down"></span>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item @@blog__active" href="/user_add_food#abc">Food</a>
+                          <a class="dropdown-item @@bs__active"{% if request.session.utype == 'Premium' %} href="/emotion#abc" {% else %} href="/gopremium#abc"  {% endif %}>Emotion</a>
+                          <a class="dropdown-item @@error__active" {% if request.session.utype == 'Premium' %} href="/exercises#abc" {% else %} href="/gopremium#abc"  {% endif %} >Exercise</a>
+
+                      </div>
+                  </li>
+                <li class="nav-item dropdown @@pages__active">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Others <span class="fa fa-angle-down"></span>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item @@blog__active" href="/user_change_password#abc">Change Password</a>
+                          {% if request.session.utype == 'Premium' %}
+                          <a class="dropdown-item @@bs__active" href="/user_sent_complaints#abc">Complaints</a>
+                          {% endif %}
+                          <a class="dropdown-item @@error__active" href="/user_sent_feedback#abc">Feedback</a>
+{#                          <a class="dropdown-item @@error__active" href="/today_calories_view#abc">Today Callorie</a>#}
+{#                          <a class="dropdown-item @@error__active" href="/user_view_request#abc">Request</a>#}
+{#                          <a class="dropdown-item @@error__active" href="/user_add_food#abc">Food</a>#}
+{#                          <a class="dropdown-item" href="landing-single.html">Landing page</a>#}
+
+                      </div>
+                  </li>
+{#                  <li class="nav-item @@contact__active">#}
+{#                      <a class="nav-link" href="/daily_calorie_intake">daily_calorie_intake</a>#}
+{#                  </li>#}
+                  <li class="nav-item @@contact__active">
+                      <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+{#                  <li class="nav-item @@contact__active">#}
+{#                <img src="{{ data.image }}" alt="Profile" width="100px" height="200px" class="profile-image">#}
+{#            </li>#}
+                  <!--/search-right-->
+
+                  <!--//search-right-->
+              </ul>
+          </div>
+          <!-- toggle switch for light and dark theme -->
+          <div class="mobile-position">
+              <nav class="navigation">
+                  <div class="theme-switch-wrapper">
+                      <label class="theme-switch" for="checkbox">
+                          <input type="checkbox" id="checkbox">
+                          <div class="mode-container">
+                              <i class="gg-sun"></i>
+                              <i class="gg-moon"></i>
+                          </div>
+                      </label>
+                  </div>
+              </nav>
+          </div>
+          <!-- //toggle switch for light and dark theme -->
+      </nav>
+  </div>
+</header>
+<!--/header-->
+<!-- main-slider -->
+	<section class="w3l-main-slider position-relative" id="home">
+		<div class="companies20-content">
+			<div class="owl-one owl-carousel owl-theme">
+				<div class="item">
+					<li>
+						<div class="slider-info banner-view bg bg2">
+							<div class="banner-info">
+								<div class="container">
+									<div class="banner-info-bg">
+										<h5>Welcome To the world of Fitness Lifestyle.</h5>
+{#										<a class="btn btn-style btn-primary mt-md-5 mt-4" href="services.html">View classes</a>#}
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</div>
+				<div class="item">
+					<li>
+						<div class="slider-info  banner-view banner-top1 bg bg2">
+							<div class="banner-info">
+								<div class="container">
+									<div class="banner-info-bg">
+										<h5>For those who Work out the Hardest!</h5>
+{#                                            <a class="btn btn-style btn-primary mt-md-5 mt-4" href="services.html">View classes</a>#}
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</div>
+				<div class="item">
+					<li>
+						<div class="slider-info banner-view banner-top2 bg bg2">
+							<div class="banner-info">
+								<div class="container">
+									<div class="banner-info-bg">
+										<h5>Your health is an investment, not an expense</h5>
+{#										<a class="btn btn-style btn-primary mt-md-5 mt-4" href="services.html">View classes</a>#}
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</div>
+				<div class="item">
+					<li>
+						<div class="slider-info banner-view banner-top3 bg bg2">
+							<div class="banner-info">
+								<div class="container">
+									<div class="banner-info-bg">
+										<h5>Don’t wish for a good body; work for it</h5>
+{#										<a class="btn btn-style btn-primary mt-md-5 mt-4" href="services.html">View classes</a>#}
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+<br>
+{#   <div class="round-calorie-container">#}
+{#        <div class="round-calorie">#}
+{#            <div class="round-calorie-inner" id="calorie-inner">#}
+{#                <span id="calorie-text"></span>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            const totalCalories = {{ request.session.total_calories_burned }};#}
+{#            const calorieGoal = {{ request.session.calorie_goal }};#}
+{#            const percentage = (totalCalories / calorieGoal) * 100;#}
+{##}
+{#            const calorieCircle = document.querySelector('.round-calorie');#}
+{#            const angle = percentage * 3.6; // Convert percentage to degrees#}
+{##}
+{#            if (percentage <= 100) {#}
+{#                calorieCircle.style.background = `conic-gradient(#ffcc00 ${angle}deg, #e6e6e6 ${angle}deg)`;#}
+{#            } else {#}
+{#                calorieCircle.style.background = `conic-gradient(#ffcc00 360deg, #e6e6e6 0deg)`;#}
+{#            }#}
+{##}
+{#            const calorieText = document.getElementById('calorie-text');#}
+{#            calorieText.textContent = `${totalCalories} kcal (${Math.min(percentage, 100).toFixed(1)}%)`;#}
+{#        });#}
+{#    </script>#}
+
+<div class="container py-5" id="abc" >
+    {% block body %}
+    {% endblock %}
+</div>
+	<!-- //banner-slider-->
+<section class="w3l-homeblock1 py-5">
+    <div class="container py-lg-5 py-md-4">
+        <div class="row">
+            <audio id="alertSound" src="/static/alert.mp3" preload="auto" ></audio>
+            <div class="col-lg-6 mb-lg-0 mb-md-5 mb-5">
+                <h3 class="title-big">Fitness is the Answer </h3>
+{#                <h5 class="mt-3">Whenever the Question is your Physical Shape!</h5>#}
+                <p class="mt-4 mb-0"> Strength doesn’t come from what you can do; it comes from overcoming the things you once thought you couldn’t</p>
+{#                <a href="#read" class="btn-style btn-primary btn mt-lg-5 mt-4">Read More</a>#}
+            </div>
+            <div class="col-lg-6">
+                <img src="/static/user/assets/images/class.jpg" alt="" class="img-fluid radius-image"/>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /bottom-grids-->
+{#	<section class="w3l-bottom-grids-6 py-5" id="why">#}
+{#		<div class="container py-lg-5 py-md-4">#}
+{#			<div class="grids-area-hny main-cont-wthree-fea row">#}
+{#				<div class="col-lg-3 col-sm-6 grids-feature">#}
+{#					<div class="area-box">#}
+{#                        <div class="icon">#}
+{#                            <span class="lnr lnr-cog"></span>#}
+{#                        </div>#}
+{#						<h4><a href="#feature" class="title-head">Quality Service</a></h4>#}
+{#						<p>Vivamus a ligula quam. Dolor blandit eu leo non et init set ipsum corsec monec..</p>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="col-lg-3 col-sm-6 grids-feature mt-sm-0 mt-5">#}
+{#					<div class="area-box">#}
+{#                        <div class="icon">#}
+{#                            <span class="lnr lnr-license"></span>#}
+{#                        </div>#}
+{#						<h4><a href="#feature" class="title-head">Spacious Gym</a></h4>#}
+{#						<p>Vivamus a ligula quam. Dolor blandit eu leo non et init set ipsum corsec monec..</p>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="col-lg-3 col-sm-6 grids-feature mt-lg-0 mt-5">#}
+{#					<div class="area-box">#}
+{#                        <div class="icon">#}
+{#                            <span class="lnr lnr-file-empty"></span>#}
+{#                        </div>#}
+{#						<h4><a href="#feature" class="title-head">Fitness Programms</a></h4>#}
+{#						<p>Vivamus a ligula quam. Dolor blandit eu leo non et init set ipsum corsec monec..</p>#}
+{#					</div>#}
+{#				</div>#}
+{#				<div class="col-lg-3 col-sm-6 grids-feature mt-lg-0 mt-5">#}
+{#					<div class="area-box">#}
+{#                        <div class="icon">#}
+{#                            <span class="lnr lnr-users"></span>#}
+{#                        </div>#}
+{#						<h4><a href="#feature" class="title-head">Group classes</a></h4>#}
+{#						<p>Vivamus a ligula quam. Dolor blandit eu leo non et init set ipsum corsec monec..</p>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+{#	</section>#}
+	<!-- //bottom-grids-->
+<section class="w3l-homeblock3 py-5">
+    <div class="container py-lg-5">
+        <div class="row">
+            <div class="col-lg-6 mb-lg-0 mb-md-5 mb-4">
+                <div class="border-style">
+                    <h3 class="title-big mb-4">Start Your workout now</h3>
+                    <p>Enter your name and email in the form below to get your first free workout at our fitness centre.
+                    </p>
+                </div>
+                <div class="form-style-w3ls">
+                    <input placeholder="Your Name" name="name" type="text" required="">
+                    <input placeholder="Your Email" name="email" type="email" required="">
+{#                    <button class="btn btn-style btn-primary w-100"> Join Now</button>#}
+                </div>
+{#                <h6 class="mt-2"> *Only for 5 Days </h6>#}
+            </div>
+            <div class="col-lg-6">
+                <img src="/static/user/assets/images/image.png" alt="" class="img-fluid radius-image" />
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w3l-portfolio-8 py-5" id="gallery">
+    <div class="portfolio-main py-lg-5 py-md-4">
+        <div class="container">
+            <div class="row galler-top mt-lg-5 mt-4">
+                <div class="col-md-2 col-5 protfolio-item hover14 align-self">
+                    <a href="/static/user/assets/images/g4.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g4.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                    <a href="/static/user/assets/images/g5.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g5.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                    <a href="/static/user/assets/images/g7.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="assets/images/g7.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                    <a href="assets/images/g9.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g9.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                </div>
+                <div class="col-md-4 col-7 protfolio-item hover14">
+                    <a href="/static/user/assets/images/g8.jpg" data-lightbox="example-set" class="mb-4"
+                        data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g8.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                    <a href="/static/user/assets/images/g6.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g6.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                    <a href="/static/user/assets/images/g3.jpg" data-lightbox="example-set" data-title="lorem ipsum dolor sit amet">
+                        <figure>
+                            <img src="/static/user/assets/images/g3.jpg" alt="product" class="img-fluid radius-image">
+                        </figure>
+                    </a>
+                </div>
+                <div class="col-md-6 protfolio-item hover14 mt-md-0 mt-4">
+                    <div class="px-md-4">
+                        <h3 class="title-big mb-4">Welcome to our LIFESTYLE club</h3>
+                        <p class="mb-md-5 mb-4">Starting a healthy lifestyle can involve eating nutritious foods,
+                            engaging in regular physical activity, and prioritizing your mental health.
+                        </p>
+                    </div>
+                    <div class="row gallery-bottom">
+                        <div class="col-6">
+                            <a href="/static/user/assets/images/g1.jpg" data-lightbox="example-set" class="mb-4"
+                                data-title="lorem ipsum dolor sit amet">
+                                <figure>
+                                    <img src="/static/user/assets/images/g1.jpg" alt="product" class="img-fluid radius-image">
+                                </figure>
+                            </a>
+                            <a href="/static/user/assets/images/g4.jpg" data-lightbox="example-set"
+                                data-title="lorem ipsum dolor sit amet">
+                                <figure>
+                                    <img src="/static/user/assets/images/g4.jpg" alt="product" class="img-fluid radius-image">
+                                </figure>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/static/user/assets/images/g2.jpg" data-lightbox="example-set"
+                                data-title="lorem ipsum dolor sit amet">
+                                <figure>
+                                    <img src="/static/user/assets/images/g2.jpg" alt="product" class="img-fluid radius-image">
+                                </figure>
+                            </a>
+                            <a href="/static/user/assets/images/g7.jpg" data-lightbox="example-set"
+                                data-title="lorem ipsum dolor sit amet">
+                                <figure>
+                                    <img src="/static/user/assets/images/g7.jpg" alt="product" class="img-fluid radius-image">
+                                </figure>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w3l-grid-slider" id="instaposts">
+    <div class="grid-slider">
+        <div class="">
+            <!--  Demos -->
+            <div id="demos">
+                <div class="owl-carousel owl-carousel-posts owl-theme grid-col-4">
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g2.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g4.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g9.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g10.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g11.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g2.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g4.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g9.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="#instagram">
+                            <div class="gallery-grid">
+                                <div class="content">
+                                    <div class="content-overlay"></div>
+                                    <img src="/static/user/assets/images/g10.jpg" class="image-two img-responsive">
+                                    <div class="content-details fadeIn-bottom">
+                                        <span class="fa fa-instagram"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /slider -->
+
+</section>
+ <!-- footers 20 -->
+ <section class="w3l-footers-20">
+   <div class="footers20">
+     <div class="container">
+       <div class="footers20-content">
+         <div class="d-grid grid-col-4 grids-content">
+           <div class="column">
+             <h4>Address</h4>
+             <p class="contact-para3">Regional Technolgies calicut Kerala, India calicut city</p>
+<p class="contact-map mt-2"><a href="https://www.google.com/maps?q=11.257564,75.784365" target="_blank"><span class="lnr lnr-map-marker"></span> Find us on map</a>
+{#    <p class="contact-map mt-2"><span class="lnr lnr-map-marker"></span> Find us on map</p>#}
+    </a></p>
+
+           </div>
+         </div>
+         <div class="d-grid grid-col-3 grids-content1 bottom-border">
+           <div class="columns copyright-grid align-self">
+             <p class="copy-footer-29">© 2024 lifestyle. All rights reserved </p>
+           </div>
+           <div class="columns text-lg-right social-grid">
+             <ul class="social">
+               <li><a href="http://www.regionaltechnologies.in/"><span class="fa fa-facebook" aria-hidden="true"></span></a></li>
+               <li><a href="http://www.regionaltechnologies.in/"><span class="fa fa-instagram" aria-hidden="true"></span></a></li>
+               <li><a href="http://www.regionaltechnologies.in/"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
+             </ul>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- move top -->
+   <button onclick="topFunction()" id="movetop" title="Go to top">
+     &#10548;
+   </button>
+   <script>
+     // When the user scrolls down 20px from the top of the document, show the button
+     window.onscroll = function () {
+       scrollFunction()
+     };
+
+     function scrollFunction() {
+       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+         document.getElementById("movetop").style.display = "block";
+       } else {
+         document.getElementById("movetop").style.display = "none";
+       }
+     }
+
+     // When the user clicks on the button, scroll to the top of the document
+     function topFunction() {
+       document.body.scrollTop = 0;
+       document.documentElement.scrollTop = 0;
+     }
+   </script>
+   <!-- /move top -->
+ </section>
+
+<script>
+$(document).ready(function(){
+    // Function to make AJAX request to server every second
+    function pollServer() {
+        // AJAX request
+        $.ajax({
+            url: '/checkalert',
+            method: 'GET',
+            success: function(response){
+
+console.log(response.task)
+                // If response is 'yes', show SweetAlert and play sound
+                if (response.task === 'valid') {
+                    console.log(response.t)
+                    if(response.t == "e") {
+                        Swal.fire({
+                            title: 'Event Alert!',
+                            text: response.event,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                    if(response.t == "r") {
+                        Swal.fire({
+                            title: 'Event Remainder!',
+                            text: response.event,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                    playAlertSound();
+                }
+                 if (response.task === 'alert') {
+                    console.log(response.t)
+
+                        Swal.fire({
+                            title: 'Alert!',
+                            text: response.event,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+
+                    playAlertSound();
+                }
+
+            },
+            error: function(xhr, status, error){
+                console.error(status, error);
+            }
+        });
+    }
+
+    // Call the function every second
+    setInterval(pollServer, 1000);
+
+    // Function to play alert sound
+    function playAlertSound() {
+        var audio = document.getElementById("alertSound");
+        audio.play();
+    }
+});
+</script>
+
+ <script src="/static/user/assets/js/jquery-3.3.1.min.js"></script>
+
+ <script src="/static/user/assets/js/theme-change.js"></script><!-- theme switch js (light and dark)-->
+
+ <!-- libhtbox -->
+ <script src="/static/user/assets/js/lightbox-plus-jquery.min.js"></script>
+
+ <script src="/static/user/assets/js/owl.carousel.js"></script>
+ <!-- script for banner slider-->
+ <script>
+   $(document).ready(function () {
+     $('.owl-one').owlCarousel({
+       loop: true,
+       margin: 0,
+       nav: false,
+       responsiveClass: true,
+       autoplay: false,
+       autoplayTimeout: 5000,
+       autoplaySpeed: 1000,
+       autoplayHoverPause: false,
+       responsive: {
+         0: {
+           items: 1,
+           nav: false
+         },
+         480: {
+           items: 1,
+           nav: false
+         },
+         667: {
+           items: 1,
+           nav: true
+         },
+         1000: {
+           items: 1,
+           nav: true
+         }
+       }
+     })
+   })
+ </script>
+ <!-- //script -->
+
+ <!-- script for tesimonials carousel slider -->
+ <script>
+   $(document).ready(function () {
+     $(".owl-two").owlCarousel({
+       loop: true,
+       margin: 20,
+       nav: false,
+       responsiveClass: true,
+       responsive: {
+         0: {
+           items: 1,
+           nav: false
+         },
+         768: {
+           items: 2,
+           nav: false
+         },
+         1000: {
+           items: 3,
+           nav: false,
+           loop: false
+         }
+       }
+     })
+   })
+ </script>
+ <!-- //script for tesimonials carousel slider -->
+
+ <script>
+   $(document).ready(function () {
+     $('.owl-carousel-posts').owlCarousel({
+       loop: true,
+       margin: 0,
+       responsiveClass: true,
+       autoplay: true,
+       autoplayTimeout: 2000,
+       autoplaySpeed: 1000,
+       autoplayHoverPause: true,
+       responsive: {
+         0: {
+           items: 2,
+           nav: false
+         },
+         480: {
+           items: 3,
+           nav: true,
+           margin: 0
+         },
+         736: {
+           items: 4,
+           nav: true,
+           margin: 0
+         },
+         1000: {
+           items: 5,
+           nav: true,
+           margin: 0
+         }
+       }
+     })
+   })
+ </script>
+ <!-- /slider -->
+
+ <!-- script for teams1-->
+ <script>
+   $(document).ready(function () {
+     $('.owl-carousel').owlCarousel({
+       loop: true,
+       margin: 0,
+       responsiveClass: true,
+       responsive: {
+         0: {
+           items: 1,
+           nav: true
+         },
+         400: {
+           items: 2,
+           nav: true,
+           margin: 20
+         },
+         1000: {
+           items: 4,
+           nav: true,
+           loop: true,
+           margin: 25
+         }
+       }
+     })
+   })
+ </script>
+ <!-- //script for teams1-->
+
+
+ <!-- stats number counter-->
+ <script src="/static/user/assets/js/jquery.waypoints.min.js"></script>
+ <script src="/static/user/assets/js/jquery.countup.js"></script>
+ <script>
+   $('.counter').countUp();
+ </script>
+ <!-- //stats number counter -->
+
+ <!-- disable body scroll which navbar is in active -->
+ <script>
+   $(function () {
+     $('.navbar-toggler').click(function () {
+       $('body').toggleClass('noscroll');
+     })
+   });
+ </script>
+ <!-- disable body scroll which navbar is in active -->
+
+ <!--/MENU-JS-->
+ <script>
+   $(window).on("scroll", function () {
+     var scroll = $(window).scrollTop();
+
+     if (scroll >= 80) {
+       $("#site-header").addClass("nav-fixed");
+     } else {
+       $("#site-header").removeClass("nav-fixed");
+     }
+   });
+
+   //Main navigation Active Class Add Remove
+   $(".navbar-toggler").on("click", function () {
+     $("header").toggleClass("active");
+   });
+   $(document).on("ready", function () {
+     if ($(window).width() > 991) {
+       $("header").removeClass("active");
+     }
+     $(window).on("resize", function () {
+       if ($(window).width() > 991) {
+         $("header").removeClass("active");
+       }
+     });
+   });
+ </script>
+ <!--//MENU-JS-->
+
+ <script src="/static/user/assets/js/bootstrap.min.js"></script>
+
+ </body>
+
+ </html>

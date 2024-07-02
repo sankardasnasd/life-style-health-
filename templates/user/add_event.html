@@ -1,0 +1,272 @@
+{% extends 'user/userindex.html' %}
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .center-block {
+            width: 100%;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+</style>
+<style>
+  .task-card {
+    position: relative; /* Needed for absolute positioning */
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .task-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .task-progress {
+    background-color: #ddd;
+    height: 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #007bff; /* Default progress bar color */
+    border-radius: 5px;
+    width: 0%; /* Initial width */
+    transition: width 0.3s ease; /* Smooth animation */
+  }
+
+  /* Divisions */
+  .division {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1); /* Division color */
+    width: 1px; /* Width of each division */
+  }
+
+  .active-division {
+    background-color: #ffcc00; /* Active division color */
+  }
+
+  /* Percentage text */
+  .percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: none;
+  }
+</style>
+<div class="container">
+<center>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+ <table class="table table-bordered center-block">
+                <tr>
+                    <th>Event</th>
+                    <td><input type="text" name="e" required class="form-control"></td>
+                </tr>
+
+                <tr>
+                    <th>Event Date</th>
+                    <td><input type="date" name="ed"  min="{{ d }}" id="fromdate" required class="form-control"></td>
+                </tr>
+                <tr>
+                    <th>Event Time</th>
+                    <td><input type="time" name="et" id="et" required class="form-control"></td>
+                </tr>
+                <tr>
+                    <th>Remainder Date</th>
+                    <td><input type="date" name="rd"  min="{{ d }}" id="todate" required class="form-control"></td>
+                </tr><tr>
+                    <th>Remainder Time</th>
+                    <td><input type="time" name="rt" id="rt" required class="form-control"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-success" name="submit"></td>
+                </tr>
+            </table>
+
+            </form>
+        </div>
+    </div>
+</center>
+    <h1 style="text-align: center">Event Details</h1>
+    <div class="row">
+        {% for tutorial in i %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+
+{#                     event = models.CharField(max_length=500)#}
+{#    status = models.CharField(max_length=20)#}
+{#    date = models.DateField()#}
+{#    time = models.TimeField()#}
+{#    rdate = models.DateField()#}
+{#    rtime = models.TimeField()#}
+                    <p><strong>Event       : </strong>{{ tutorial.event }}</p>
+
+                    <p><strong>Event Date  : </strong>{{ tutorial.date }}</p>
+                    <p><strong>Event Time  : </strong>{{ tutorial.time }}</p>
+                    <p><strong>Remainder Date    :</strong>{{ tutorial.rdate }}</p>
+                    <p><strong>Remainder Time    :</strong>{{ tutorial.rtime }}</p>
+
+{# to check  #}
+
+{#                        {{ tutorial.file }}</p>#}
+
+                    <p><a href="/delete_event/{{ tutorial.id }}" class="btn btn-danger">DELETE</a>  </p>
+
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</center>
+
+
+
+
+{#<div class="container">#}
+{#    <div class="card-container row">#}
+{#      <!-- Loop through data and create cards -->#}
+{#      {% for i in i %}#}
+{#      <div class="col-md-6">#}
+{#        <div class="card complaint-card">#}
+{#          <div class="card-body">#}
+{#                          <p><strong>Date:</strong> {{ i.date }}</p>#}
+{#                          <p><strong>Title:</strong> {{ i.title }}</p>#}
+{##}
+{#            <p><strong>Description:</strong> {{ i.description }}</p>#}
+{#            <p><strong>Video</strong><a href="{{ tutorial.file }}">#}
+{#                            <video width="320" height="240" controls>#}
+{#  <source src="{{ tutorial.file }}" type="video/mp4">#}
+{#  <source src="movie.ogg" type="video/ogg">#}
+{#  Your browser does not support the video tag.#}
+{#</video>#}
+{##}
+{#                        </a></p>#}
+{#            <p><strong><a href="{{ tutorial.pdf }}" class="btn btn-warning">PDF</a></strong> </p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endfor %}#}
+{#    </div>#}
+{#  </div>#}
+
+
+
+ <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fromDateInput = document.getElementById('fromdate');
+            const toDateInput = document.getElementById('todate');
+            const form = document.getElementById('taskForm');
+
+            function validateDates() {
+                const fromDate = new Date(fromDateInput.value);
+                const toDate = new Date(toDateInput.value);
+
+                if (toDate >= fromDate) {
+                    alert("'To Date' must be before 'From Date'.");
+                    toDateInput.value = '';
+                    return false;
+                }
+                return true;
+            }
+
+            fromDateInput.addEventListener('change', validateDates);
+            toDateInput.addEventListener('change', validateDates);
+
+            form.addEventListener('submit', function (event) {
+                if (!validateDates()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+
+<script>
+  // Set completion percentage (between 0 and 100)
+  function setCompletion(percentage,id) {
+    const progressBar = document.getElementById('progressBar'+id);
+    progressBar.style.width = percentage + '%';
+
+    const divisionsContainer = document.getElementById('divisions'+id);
+    divisionsContainer.innerHTML = ''; // Clear previous divisions
+
+    const numDivisions = Math.round(percentage / 5); // Divide by 5 to create divisions approximately every 5%
+    for (let i = 0; i < numDivisions; i++) {
+      const division = document.createElement('div');
+      division.classList.add('division'+id);
+      division.style.left = (i * 5) + '%'; // Place each division approximately every 5%
+      divisionsContainer.appendChild(division);
+    }
+
+    // Update percentage text
+    const percentageText = document.getElementById('percentageText'+id);
+    percentageText.textContent = percentage + '%';
+  }
+
+  // Update tooltip position and content
+  function updateTooltip(event) {
+    const tooltip = document.getElementById('tooltip');
+    const taskCard = document.getElementById('taskCard');
+    const rect = taskCard.getBoundingClientRect();
+    const percentage = Math.round((event.clientX - rect.left) / rect.width * 100);
+    tooltip.innerHTML = percentage + '%';
+    tooltip.style.display = 'block';
+    tooltip.style.left = event.clientX + 'px';
+  }
+
+  // Hide tooltip when mouse leaves the task card
+  function hideTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.style.display = 'none';
+  }
+
+  // Example usage:
+   {% for j in i %}
+  setCompletion({{ j.p }},{{ j.id }}); // Sets completion to 50%
+  {% endfor %}
+  // Add event listeners
+  const taskCard = document.getElementById('taskCard');
+  taskCard.addEventListener('mousemove', updateTooltip);
+  taskCard.addEventListener('mouseleave', hideTooltip);
+</script>
+</body>
+</html>
+{% endblock %}

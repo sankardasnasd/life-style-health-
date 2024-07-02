@@ -1,0 +1,179 @@
+{#{% extends 'admin/adminindex.html' %}#}
+{#{% block body %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Card View</title>#}
+{#    <style>#}
+{#        body, html {#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#            font-family: Arial, sans-serif;#}
+{#        }#}
+{#        .container {#}
+{#            display: flex;#}
+{#            flex-wrap: wrap;#}
+{#            padding: 20px;#}
+{#            justify-content: center;#}
+{#        }#}
+{#        .card {#}
+{#            background: #f8f9fa;#}
+{#            border: 1px solid #ddd;#}
+{#            border-radius: 5px;#}
+{#            margin: 10px;#}
+{#            width: calc(33.333% - 20px);#}
+{#            box-sizing: border-box;#}
+{#            transition: transform 0.2s;#}
+{#        }#}
+{#        .card:hover {#}
+{#            transform: translateY(-5px);#}
+{#        }#}
+{#        .card-body {#}
+{#            padding: 15px;#}
+{#        }#}
+{#        .card-title {#}
+{#            font-size: 1.25rem;#}
+{#            margin: 0 0 10px;#}
+{#        }#}
+{#        .card-subtitle {#}
+{#            font-size: 1rem;#}
+{#            color: #6c757d;#}
+{#            margin: 0 0 10px;#}
+{#        }#}
+{#        .card-text {#}
+{#            font-size: 0.875rem;#}
+{#            margin-bottom: 10px;#}
+{#        }#}
+{#        .card-link {#}
+{#            color: #007bff;#}
+{#            text-decoration: none;#}
+{#            margin-right: 10px;#}
+{#        }#}
+{#        .card-link:hover {#}
+{#            text-decoration: underline;#}
+{#        }#}
+{##}
+{#        @media (max-width: 768px) {#}
+{#            .card {#}
+{#                width: calc(50% - 20px);#}
+{#            }#}
+{#        }#}
+{#        @media (max-width: 480px) {#}
+{#            .card {#}
+{#                width: calc(100% - 20px);#}
+{#            }#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="container">#}
+{#    {% for i in a %}#}
+{#    <div class="card">#}
+{#        <div class="card-body">#}
+{#                            <img class="card-img-top" src="{{ i.image }}" alt="Card image cap">#}
+{##}
+{#            <h5 class="card-title">{{ i.email }}</h5>#}
+{#            <h6 class="card-subtitle mb-2 text-muted">{{ i.phone }}</h6>#}
+{#            <p class="card-text">{{ i.status }}</p>#}
+{#            <a href="/admin_block_expert/{{ i.id }}" class="card-link">Block</a>#}
+{#            <a href="/admin_unblock_expert/{{ i.id }}" class="card-link">Unblock</a>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{#<div class="container mt-4">#}
+{#<h2>Block Or Unblock Experts</h2>#}
+{#    <div class="row">#}
+{#        {% for i in a %}  <!-- Example loop for 6 cards -->#}
+{#        <div class="col-md-4 mb-4">#}
+{#            <div class="card" style="width: 100%;">#}
+{#                <img class="card-img-top" src="{{ i.image }}" alt="Card image cap" width="300px" height="300px">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ i.name }}</h5>#}
+{#                    <p class="card-text">Address :{{ i.place }}<br>{{ i.post }}<br>{{ i.district }}<br><br></p>#}
+{#                    <p class="card-text">Contact :{{ i.phone }}<br></p>#}
+{#                    <p class="card-text">Email :{{ i.email }}<br></p>#}
+{#                    <p class="card-text">Status :{{ i.status }}<br></p>#}
+{##}
+{#                    <a href="/admin_block_expert/{{ i.id }}" class="btn btn-primary">Block</a>#}
+{#                    <a href="/admin_unblock_expert/{{ i.id }}" class="btn btn-danger">Unblock</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+{##}
+{#{% endblock %}#}
+
+
+{% extends 'admin/adminindex2.html' %}
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Card View</title>
+</head>
+
+
+
+<form method="post" action="/admin_block_unblock_post">{% csrf_token %}
+
+<div class="container mt-4">
+<h2 style="text-align: center">Block Or Unblock Experts</h2>
+
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Expert Name</th>
+            <th><input type="text" name="f" required class="form-control" ></th>
+
+            <th><input type="submit" value="Search" class="btn btn-warning" required></th>
+        </tr>
+    </table>
+</div>
+
+    <div class="row">
+
+        {% for i in a %}  <!-- Example loop for 6 cards -->
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 100%;">
+                <img class="card-img-top" src="{{ i.image }}" alt="Card image cap" width="300px" height="300px">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p class="card-text">Address :{{ i.place }}<br>{{ i.post }}<br>{{ i.district }}<br><br></p>
+                    <p class="card-text">Contact :{{ i.phone }}<br></p>
+                    <p class="card-text">Email :{{ i.email }}<br></p>
+                    <p class="card-text">Status :{{ i.status }}<br></p>
+
+                    <a href="/admin_block_expert/{{ i.id }}" class="btn btn-primary">Block</a>
+                    <a href="/admin_unblock_expert/{{ i.id }}" class="btn btn-danger">Unblock</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</form>
+</body>
+</html>
+{% endblock %}

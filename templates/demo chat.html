@@ -1,0 +1,133 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Chat Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+    /* styles.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #00aeff;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 600px;
+    height: 80%;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 20px;
+    background: green;
+    color: white;
+    text-align: center;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.message.received {
+    justify-content: flex-start;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    position: relative;
+    font-size: 14px;
+    background: #f1f1f1;
+    color: #333;
+}
+
+.message.sent .message-content {
+    background: #6a11cb;
+    color: white;
+}
+
+.time {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+}
+
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.chat-input button {
+    padding: 15px 20px;
+    background: green;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.chat-input button:hover {
+    background: #4e0d9b;
+}
+
+</style>
+    <div class="chat-container">
+    <div class="chat-box">
+            <div class="message received">
+                <div class="message-content">
+                    <p>Hello! How can I help you today?</p>
+                    <span class="time">10:00 AM</span>
+                </div>
+            </div>
+            <div class="message sent">
+                <div class="message-content">
+                    <p>I need some assistance with my account.</p>
+                    <span class="time">10:02 AM</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type a message..." />
+            <button>Send</button>
+        </div>
+    </div>
+</body>
+</html>
